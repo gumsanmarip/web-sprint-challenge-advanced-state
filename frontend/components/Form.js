@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
+  const [state, setState] = useState({
+    newQuestion:'',
+    newTrueAnswer:'',
+    newFalseAnswer:'',
+  });
 
-  const onChange = evt => {
-
+  const onChange = (e) => {
+    props.inputChange(e.target.value);
   }
 
-  const onSubmit = evt => {
-
+  const onSubmit = (e) => {
+    e.preventDefault();
+    props.setQuiz(props.inputChange)
   }
 
   return (
