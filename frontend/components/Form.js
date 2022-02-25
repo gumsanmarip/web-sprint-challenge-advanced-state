@@ -3,9 +3,12 @@ import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
 export function Form(props) {
+  const { inputChange, postQuiz, form} = props;
   
   const onChange = (e) => {
-    props.inputChange(e.target.value);
+    const { value, id } = e.target
+    const newQuestion = {...form, [id]:value}
+   inputChange(newQuestion)
   }
 
   const onSubmit = (e) => {
@@ -13,12 +16,17 @@ export function Form(props) {
     props.postQuiz(props.question_text, props.true_answer_text, props.false_answer_text)
   }
 
+  const enabled = 
+    props.form.newQuestion.trim('').length > 0 &&
+    props.form.newTrueAnswer.trim('').length > 0 &&
+    props.form.newFalseAnswer.trim('').length > 0
+
   return (
     <form id="form" onSubmit={onSubmit}>
       <h2>Create New Quiz</h2>
-      <input maxLength={50} onChange={onChange} value={props.question_text} id="newQuestion" placeholder="Enter question" />
-      <input maxLength={50} onChange={onChange} value={props.true_answer_text} id="newTrueAnswer" placeholder="Enter true answer" />
-      <input maxLength={50} onChange={onChange} value={props.false_answer_text} id="newFalseAnswer" placeholder="Enter false answer" />
+      <input maxLength={50} onChange={onChange} value={form.newQuestion} id="newQuestion" placeholder="Enter question" />
+      <input maxLength={50} onChange={onChange} value={form.newTrueAnswer} id="newTrueAnswer" placeholder="Enter true answer" />
+      <input maxLength={50} onChange={onChange} value={form.newFalseAnswer} id="newFalseAnswer" placeholder="Enter false answer" />
       <button id="submitNewQuizBtn">Submit new quiz</button>
     </form>
   )
