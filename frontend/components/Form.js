@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actionCreators from '../state/action-creators'
 
@@ -13,7 +13,11 @@ export function Form(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    props.postQuiz(props.question_text, props.true_answer_text, props.false_answer_text)
+    postQuiz({
+      question_text: props.form.newQuestion, 
+      true_answer_text: props.form.newTrueAnswer, 
+      false_answer_text: props.form.newFalseAnswer
+    })
   }
 
   const enabled = 
@@ -27,7 +31,7 @@ export function Form(props) {
       <input maxLength={50} onChange={onChange} value={form.newQuestion} id="newQuestion" placeholder="Enter question" />
       <input maxLength={50} onChange={onChange} value={form.newTrueAnswer} id="newTrueAnswer" placeholder="Enter true answer" />
       <input maxLength={50} onChange={onChange} value={form.newFalseAnswer} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn">Submit new quiz</button>
+      <button disabled={!enabled} id="submitNewQuizBtn">Submit new quiz</button>
     </form>
   )
 }

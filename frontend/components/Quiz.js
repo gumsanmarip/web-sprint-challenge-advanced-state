@@ -6,8 +6,7 @@ export function Quiz(props) {
   const { quiz, postAnswer } = props;
 
   useEffect(() => {
-      props.fetchQuiz()
-      console.log(props.fetchQuiz)
+      props.fetchQuiz();
     }
   , [])
 
